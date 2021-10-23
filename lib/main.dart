@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Anime App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          primarySwatch: Colors.lightGreen,
+          backgroundColor: Colors.lightGreenAccent),
       home: AnimesScreen(),
     );
   }

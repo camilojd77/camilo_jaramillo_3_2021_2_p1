@@ -3,6 +3,7 @@ import 'package:anime_app/components/loader_component.dart';
 import 'package:anime_app/helpers/api_helper.dart';
 import 'package:anime_app/models/anime.dart';
 import 'package:anime_app/models/response.dart';
+import 'package:anime_app/screens/anime_info_screen.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 
@@ -96,7 +97,9 @@ class _AnimesScreenState extends State<AnimesScreen> {
       child: ListView(
         children: _animes.map((e) {
           return Card(
+            color: Colors.grey.shade100,
             child: InkWell(
+              onTap: () => _goInfoAnime(e),
               child: Container(
                 margin: EdgeInsets.all(10),
                 padding: EdgeInsets.all(5),
@@ -105,6 +108,13 @@ class _AnimesScreenState extends State<AnimesScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Image.network(
+                            e.anime_img,
+                            width: 50,
+                          ),
+                        ),
                         Text(
                           e.anime_name,
                           style: TextStyle(
@@ -114,17 +124,6 @@ class _AnimesScreenState extends State<AnimesScreen> {
                         Icon(Icons.arrow_forward_ios),
                       ],
                     ),
-                    /*SizedBox(height: 5,),
-                    Row(
-                      children: [
-                        Text(
-                          '${NumberFormat.currency(symbol: '\$').format(e.price)}', 
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),*/
                   ],
                 ),
               ),
@@ -198,5 +197,13 @@ class _AnimesScreenState extends State<AnimesScreen> {
     });
 
     Navigator.of(context).pop();
+  }
+
+  void _goInfoAnime(Anime anime) async {
+    String? result = await Navigator.push(context,
+        MaterialPageRoute(builder: (context) => AnimeInfoScreen(anime: anime)));
+    if (result == 'yes') {
+      _getAnimes();
+    }
   }
 }
