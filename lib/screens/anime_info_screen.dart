@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:ui';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
